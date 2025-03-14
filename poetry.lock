@@ -338,6 +338,17 @@ files = [
 Django = ">=4.2"
 
 [[package]]
+name = "django-stub"
+version = "0.1"
+description = "A simple command line tool to streamline django project setups."
+optional = false
+python-versions = "*"
+groups = ["main"]
+files = [
+    {file = "django-stub-0.1.tar.gz", hash = "sha256:03dfa671a4f5027dcba98b07260d3ab933ff84edf842bf9406bb13e024bcd284"},
+]
+
+[[package]]
 name = "djangorestframework"
 version = "3.15.2"
 description = "Web APIs for Django, made easy."
@@ -1141,4 +1152,4 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "e0b06bc05a23e167f39740a3999f8a6549165d5acf975f6fea6cd469c210d463"
+content-hash = "071db46940e49eb51abe8597a3775374cb01e50a3b89453b393266df2a873333"

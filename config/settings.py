@@ -10,7 +10,49 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import logging
+import os
+from datetime import timedelta
 from pathlib import Path
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "\n\n{name} {levelname} {asctime} {module} {process:d} {thread:d} {message}\n\n",
+            "style": "{",
+        },
+        "simple": {
+            "format": "\n\n[%(asctime)s] %(levelname)s %(message)s\n\n",
+            "datefmt": "%Y-%m-%d %H:%M:%S",
+        },
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": "INFO",
+            "formatter": "verbose",
+        },
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": "ERROR_REPORT.log",
+            "level": "DEBUG",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["file", "console"],
+            "level": "ERROR",
+        },
+        "ERROR_REPORT": {
+            "handlers": ["file", "console"],
+            "level": "ERROR",
+        },
+    },
+}
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +79,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "corsheaders",
+    "apps.news",
 ]
 
 MIDDLEWARE = [
