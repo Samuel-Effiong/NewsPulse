@@ -35,6 +35,7 @@ class NewsAdmin(admin.ModelAdmin):  # type: ignore
     list_filter: Tuple[str, ...] = ("tags", "published_at")
     search_fields: Tuple[str, ...] = ("title", "content", "tags__name")
     prepopulated_fields: Dict[str, Sequence[str]] = {"slug": ["title"]}
+    inlines: list[type] = [NewsImageInline]
 
 
 @admin.register(Tag)
