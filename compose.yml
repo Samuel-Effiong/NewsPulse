@@ -1,0 +1,36 @@
+
+services:
+  backend:
+    container_name: NewsPulse_Backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: gunicorn --bind 0.0.0.0:8000 config.wsgi:application
+    volumes:
+      - .:/app
+      - /app/__pycache__
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - ALLOWED_HOSTS=*
+      - SECRET_KEY=secret
+      - ENVIRONMENT=local
+      - DATABASE_URL=sqlite:///db.sqlite3
+    restart: always
+
+  db:
+    image: postgres:17
+    container_name: NewsPulse_DB
+    restart: always
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: Nkopuruk@4
+        POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+    postgres_data:

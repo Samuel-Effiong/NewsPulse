@@ -1,0 +1,46 @@
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+    - id: check-yaml
+    - id: end-of-file-fixer
+    - id: trailing-whitespace
+    - id: check-added-large-files
+    - id: detect-private-key
+-   repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+    - id: black
+      args: [--line-length=120, --safe]
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.15.0'  # Use the sha / tag you want to point at
+    hooks:
+    -   id: mypy
+        args: [--strict, --ignore-missing-imports, --check-untyped-defs, --disable-error-code=var-annotated]
+        exclude: ^migrations/
+        additional_dependencies:
+          - django-stubs[compatible-mypy]
+          - djangorestframework-stubs
+          - types-requests
+          - types-python-dateutil
+          - types-redis
+          - types-waitress
+          - types-uwsgi
+          - types-pyjwt
+          - types-pyyaml
+-   repo: https://github.com/pycqa/flake8 # Linting with Flake8
+    rev: 7.1.2
+    hooks:
+      - id: flake8
+        additional_dependencies: [flake8-bugbear==24.12.12]
+        args:
+          - --max-line-length=1000                  # Matches Black's line length
+          - --select=E,F,W                          # Enable common checks
+          - --ignore=F403,F401,F405
+#          - --ignore=E203,W503,F405,F401,F403,E402      # Align with Black formatting
+    # Sort imports automatically with isort
+-   repo: https://github.com/pre-commit/mirrors-isort
+    rev: v5.10.1
+    hooks:
+    -   id: isort                       # Ensure imports are sorted
+        args: [--profile=black, --line-length=120]
