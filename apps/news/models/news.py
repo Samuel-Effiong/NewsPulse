@@ -1,6 +1,22 @@
+import os
 from typing import Any, Dict, List
 
 from django.db import models
+from django.utils.text import slugify
+
+
+def news_featured_image_path(instance: "News", filename: str) -> str:
+    """
+    Construct a dynamic upload path for the featured image.
+    The image will be stored in a folder named after the news article's slug.
+    If the slug is not set, we use a slugified version of the title.
+    """
+
+    folder_name = instance.slug if instance.slug else slugify(instance.title)
+    return os.path.join(folder_name, "featured_image", filename)
+
+
+STATUS_CHOICES = (("Draft", "Draft"), ("Published", "Published"))
 
 
 class News(models.Model):
@@ -20,6 +36,10 @@ class News(models.Model):
         verbose_name="Published At",
         help_text="The date and time when the news article was published",
     )
+    status = models.CharField(
+        max_length=20, default="Draft", choices=STATUS_CHOICES, help_text="The current status of the news item"
+    )
+
     view_count = models.PositiveIntegerField(
         default=0, verbose_name="View Count", help_text="Number of likes recieved by the news article"
     )
@@ -33,11 +53,16 @@ class News(models.Model):
         "Tag", related_name="news", verbose_name="Tags", help_text="Tags associated with this news article."
     )
     slug = models.SlugField(max_length=220, unique=True, help_text="SEO-friendly URL identifier")
+    featured_image = models.ImageField(
+        upload_to=news_featured_image_path,
+        verbose_name="Image",
+        help_text="Upload the featured image for the news article",
+    )
 
     class Meta:
         verbose_name: str = "News"
         verbose_name_plural: str = "News"
-        ordering: List[str] = ["-published_at", "-created_at"]
+        ordering: List[str] = ["-created_at"]
         indexes = [models.Index(fields=["slug"]), models.Index(fields=["published_at"])]
 
     def __str__(self) -> str:

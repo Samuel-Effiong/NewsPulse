@@ -1,8 +1,22 @@
+import os
 from typing import Any, List, Optional
 
 from django.db import models
+from django.utils.text import slugify
 
 # from .news import News
+
+
+def news_image_upload_path(instance: "NewsImage", filename: str) -> str:
+    """
+    Construct a dynamic upload path for the news image.
+    The image will be stored in a folder named after the related news article's slug.
+    If the news article's slug is not set, it will use a slugified version of the news title.
+    """
+
+    # Access the related news article's slug or slugify its title.
+    news_slug = instance.news.slug if instance.news.slug else slugify(instance.news.title)
+    return os.path.join(news_slug, filename)
 
 
 class NewsImage(models.Model):
@@ -16,7 +30,7 @@ class NewsImage(models.Model):
         help_text="The news article this image belongs to",
     )
     image = models.ImageField(
-        upload_to="news_images/",
+        upload_to=news_image_upload_path,
         verbose_name="Image",
         help_text="Upload an image for the news article",
     )

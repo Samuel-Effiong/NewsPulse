@@ -1,5 +1,6 @@
 from typing import List
 
+from drf_writable_nested import WritableNestedModelSerializer
 from rest_framework import serializers
 
 from .models import News, NewsImage, Tag
@@ -17,8 +18,8 @@ class NewsImageSerializer(serializers.ModelSerializer):  # type: ignore
         fields: List[str] = ["id", "image", "caption"]
 
 
-class NewsSerializer(serializers.ModelSerializer):  # type: ignore
-    tags = TagsSerializer(many=True, read_only=True)
+class NewsSerializer(WritableNestedModelSerializer):  # type: ignore
+    tags = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(), many=True)
     images = NewsImageSerializer(many=True, read_only=True)
 
     class Meta:
@@ -27,6 +28,8 @@ class NewsSerializer(serializers.ModelSerializer):  # type: ignore
             "id",
             "title",
             "content",
+            "slug",
+            "featured_image",
             "published_at",
             "created_at",
             "updated_at",
@@ -36,3 +39,4 @@ class NewsSerializer(serializers.ModelSerializer):  # type: ignore
             "tags",
             "images",
         ]
+        read_only_fields = ["created_at", "updated_at", "view_count", "like_count", "dislike_count"]

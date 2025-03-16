@@ -29,10 +29,11 @@ class NewsAdmin(admin.ModelAdmin):  # type: ignore
     list_display: Tuple[str, ...] = (
         "title",
         "slug",
+        "status",
         "published_at",
         "view_count",
     )
-    list_filter: Tuple[str, ...] = ("tags", "published_at")
+    list_filter: Tuple[str, ...] = ("tags", "status", "published_at")
     search_fields: Tuple[str, ...] = ("title", "content", "tags__name")
     prepopulated_fields: Dict[str, Sequence[str]] = {"slug": ["title"]}
     inlines: list[type] = [NewsImageInline, TagInline]

@@ -29,7 +29,8 @@ dependencies = [
     "djangorestframework-simplejwt (>=5.5.0,<6.0.0)",
     "gunicorn (>=23.0.0,<24.0.0)",
     "pre-commit-hooks (>=5.0.0,<6.0.0)",
-    "django-stub (>=0.1,<0.2)"
+    "django-stub (>=0.1,<0.2)",
+    "drf-writable-nested (>=0.7.2,<0.8.0)"
 ]
 
 

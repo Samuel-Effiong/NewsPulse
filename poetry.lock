@@ -429,6 +429,17 @@ docs = ["mkdocs (>=0.11.1)"]
 tests = ["Django (>=1.6)", "djangorestframework (>=2.4.3)", "flake8", "pytest", "pytest-django"]
 
 [[package]]
+name = "drf-writable-nested"
+version = "0.7.2"
+description = "Writable nested helpers for django-rest-framework's serializers"
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "drf_writable_nested-0.7.2-py3-none-any.whl", hash = "sha256:4a3d2737c1cbfafa690e30236b169112e5b23cfe3d288f3992b0651a1b828c4d"},
+]
+
+[[package]]
 name = "filelock"
 version = "3.18.0"
 description = "A platform independent file lock."
@@ -1152,4 +1163,4 @@ brotli = ["brotli"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12"
-content-hash = "071db46940e49eb51abe8597a3775374cb01e50a3b89453b393266df2a873333"
+content-hash = "8865db3e14a63be2a138a5e8924ea0e44170be87530ec48a83cc85cded9225b6"

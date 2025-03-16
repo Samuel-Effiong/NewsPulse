@@ -67,7 +67,7 @@ SECRET_KEY = "django-insecure-i0=s9fi^e5*+o768&%nrr@p+!5y8wwy6cbg*7r6zs8=jpr#pw-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -83,10 +83,13 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "apps.news",
+    "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -94,6 +97,13 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://127.0.0.1:3000"]
+
+CORS_ALLOW_METHODS = ["DELETE", "GET", "OPTIONS", "PATCH", "POST", "PUT"]
 
 ROOT_URLCONF = "config.urls"
 
@@ -162,6 +172,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+MEDIA_URL = "media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

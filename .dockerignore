@@ -6930,7 +6930,7 @@ node_modules/
 .cache/
 public
 
-src/gatsby-types.d.ts
+0Frontend/src/gatsby-types.d.ts
 
 ### Silverstripe template
 assets/_combinedfiles/
@@ -9239,9 +9239,9 @@ cookbooks/
 # 1C external data processors on unmanaged formes
 
 **/Form/**/form
-src/**/und/*
-src/**/maps.txt
-src/**/renames.txt
+0Frontend/src/**/und/*
+0Frontend/src/**/maps.txt
+0Frontend/src/**/renames.txt
 
 ### Bloop template
 .bloop/
@@ -10661,7 +10661,7 @@ logtalk_doclet_logs/
 *.sig
 
 pkg/
-src/
+0Frontend/src/
 
 ### Spark template
 *#*#
@@ -16395,7 +16395,7 @@ bin-release/
 ### Gradle template
 .gradle
 **/build/
-!src/**/build/
+!0Frontend/src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting
