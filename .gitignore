@@ -653,6 +653,8 @@ instance/
 # Sphinx documentation
 docs/_build/
 
+Dockerfile
+
 # PyBuilder
 .pybuilder/
 target/
