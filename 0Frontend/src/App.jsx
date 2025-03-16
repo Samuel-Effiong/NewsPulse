@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import NewsItem from "./components/NewsItem";
 import StatsPage from "./pages/StatsPage";
 import "bootstrap/dist/css/bootstrap.min.css";
+import NewsByTagPage from "./pages/NewsByTagPage";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/news/:id" element={<NewsItem />} />
             <Route path="/stats" element={<StatsPage />} />
+            <Route path="/tag/:tag" element={<NewsByTagPage />} />
           </Routes>
         </div>
       </div>

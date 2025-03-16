@@ -21,9 +21,9 @@ const apiClient = axios.create({
  * Fetches a list of news articles from the backend.
  * @returns {Promise<Array>} A promise that resolves to an array of news articles.
  */
-export const fetchNews = async (page=1) => {
+export const fetchNews = async (page=1, tag="") => {
   try {
-    const response = await apiClient.get(`news/?page=${page}`);
+    const response = await apiClient.get(`news/?page=${page}${tag? `&tag=${tag}` : ""}`);
     return response.data; // Returns the list of news articles
   } catch (error) {
     console.error("Error fetching news articles:", error);
