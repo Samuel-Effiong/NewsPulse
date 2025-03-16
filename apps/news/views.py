@@ -46,11 +46,37 @@ class NewsViewSet(viewsets.ModelViewSet):  # type: ignore
             queryset = queryset.filter(tags__name=tag)
         return queryset
 
+    def retrieve(self, request: Any, *args: Any, **kwargs: Any) -> Response:
+        """
+        Overridden retrieve method that increments the view count
+        when a news item is fetched
+
+        :param request:
+        :param args:
+        :param kwargs:
+        :return:
+        """
+
+        # Get the news instance (raises 404 if not found)
+        instance = self.get_object()
+
+        # increment the view count (this method updates and save the instance)
+        instance.increment_view_count()
+
+        # Serialize the updated instance
+        serializer = self.get_serializer(instance)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     @action(detail=True, methods=["post"])
     def like(self, request: Any, pk: Any = None) -> Response:
         """Custom action to add a like to the news item"""
         news: News = self.get_object()
         news.add_like()
+
+        # Refresh from DB to get the latest count
+        news.refresh_from_db()
+
         serializer: BaseSerializer[Any] = self.get_serializer(news)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -59,6 +85,10 @@ class NewsViewSet(viewsets.ModelViewSet):  # type: ignore
         """Custom action to add a dislike to the news item"""
         news: News = self.get_object()
         news.add_dislike()
+
+        # Refresh from DB to get the Latest count if updated concurrent
+        news.refresh_from_db()
+
         serializer: BaseSerializer[Any] = self.get_serializer(news)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
