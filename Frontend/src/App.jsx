@@ -14,7 +14,7 @@ function App() {
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
           <div className="container">
             <Link className="navbar-brand" to="/">
-              News Portal
+              NewsPulse
             </Link>
             <button
               className="navbar-toggler"
